@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: calculator2
+appId: com.Isac-1507.Calculator
+productName: Calculator
 directories:
   buildResources: build
 files:
@@ -12,8 +12,12 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: calculator2
+  executableName: Calculator
 nsis:
+  oneClick: false
+  perMachine: false
+  allowElevation: true
+  allowToChangeInstallationDirectory: true
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
@@ -31,12 +35,14 @@ dmg:
 linux:
   target:
     - AppImage
-    - snap
     - deb
+    - rpm
   maintainer: electronjs.org
   category: Utility
+  description: "This is my calculator written in svelte and published through electron!"
 appImage:
   artifactName: ${name}-${version}.${ext}
+
 npmRebuild: false
 publish:
   provider: generic
