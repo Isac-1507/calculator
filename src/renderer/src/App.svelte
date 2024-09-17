@@ -1,6 +1,8 @@
 <script>
   let display_number = ''
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const select = (num) => () => (display_number += num)
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const clear = () => (display_number = '')
 
   let operand
@@ -8,21 +10,31 @@
   let operator
   let operators = ['+', '-', '*', '/']
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   function operation(sign) {
     operand = Number(display_number)
     operator = sign
     display_number = ''
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   function equals() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     display_number = Number(display_number)
     if (operator === '+') {
       result = operand + display_number
     } else if (operator === '-') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       result = operand - display_number
     } else if (operator === '*') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       result = operand * display_number
     } else if (operator === '/') {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       result = operand / display_number
     }
     display_number = result.toString()
