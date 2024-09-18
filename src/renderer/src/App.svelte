@@ -75,7 +75,17 @@
       window.removeEventListener('keydown', handleKeydown)
     }
   })
+  onMount(() => {
+    const buttons = document.querySelectorAll('button')
 
+    buttons.forEach((button) => {
+      button.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault()
+        }
+      })
+    })
+  })
 </script>
 
 <body style="background-color: #323232;">
