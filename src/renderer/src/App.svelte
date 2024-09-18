@@ -1,62 +1,81 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+
+  // Variable to store the number to be displayed
   let display_number = ''
+
+  // Function to append a selected number to the display_number
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const select = (num) => () => (display_number += num)
+
+  // Function to clear the display_number
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const clear = () => (display_number = '')
 
+  // Variables to store the operand, result, and operator
   let operand
   let result
   let operator
+
+  // Array of valid operators
   let operators = ['+', '-', '*', '/', 'x']
 
+  // Function to handle keydown events
   function handleKeydown(event: KeyboardEvent): void {
     const key = event.key
+    // If the key is a number, append it to the display_number
     if (!isNaN(Number(key))) {
       select(key.toString())()
+      // If the key is an operator, perform the operation
     } else if (operators.includes(key)) {
       operation(key)
+      // If the key is Enter, calculate the result
     } else if (key === 'Enter') {
       equals()
+      // If the key is Escape, clear the display_number
     } else if (key === 'Escape') {
       clear()
     }
   }
+
+  // Function to store the operand and operator, and clear the display_number
   function operation(sign): void {
     operand = Number(display_number)
     operator = sign
     display_number = ''
   }
 
+  // Function to calculate the result based on the operator and operand
   function equals(): void {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    display_number = Number(display_number)
-    if (operator === '+') {
-      result = operand + display_number
-    } else if (operator === '-') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      result = operand - display_number
-    } else if (operator === '*' || operator === 'x') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      result = operand * display_number
-    } else if (operator === '/') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      result = operand / display_number
+    if (operator !== null && operand !== null && display_number !== '') {
+      const currentNum = Number(display_number)
+      switch (operator) {
+        case '+':
+          result = operand + currentNum
+          break
+        case '-':
+          result = operand - currentNum
+          break
+        case 'x':
+        case '*':
+          result = operand * currentNum
+          break
+        case '/':
+          result = operand / currentNum
+          break
+      }
     }
     display_number = result.toString()
   }
 
+  // Lifecycle function to add and remove the keydown event listener
   onMount(() => {
     window.addEventListener('keydown', handleKeydown)
     return (): void => {
       window.removeEventListener('keydown', handleKeydown)
     }
   })
+
 </script>
 
 <body style="background-color: #323232;">
