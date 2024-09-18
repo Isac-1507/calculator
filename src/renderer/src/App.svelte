@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+  import { onMount } from 'svelte'
   let display_number = ''
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const select = (num) => () => (display_number += num)
@@ -8,17 +9,27 @@
   let operand
   let result
   let operator
-  let operators = ['+', '-', '*', '/']
+  let operators = ['+', '-', '*', '/', 'x']
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  function operation(sign) {
+  function handleKeydown(event: KeyboardEvent): void {
+    const key = event.key
+    if (!isNaN(Number(key))) {
+      select(key.toString())()
+    } else if (operators.includes(key)) {
+      operation(key)
+    } else if (key === 'Enter') {
+      equals()
+    } else if (key === 'Escape') {
+      clear()
+    }
+  }
+  function operation(sign): void {
     operand = Number(display_number)
     operator = sign
     display_number = ''
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  function equals() {
+  function equals(): void {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     display_number = Number(display_number)
@@ -28,7 +39,7 @@
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       result = operand - display_number
-    } else if (operator === '*') {
+    } else if (operator === '*' || operator === 'x') {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       result = operand * display_number
@@ -39,6 +50,13 @@
     }
     display_number = result.toString()
   }
+
+  onMount(() => {
+    window.addEventListener('keydown', handleKeydown)
+    return (): void => {
+      window.removeEventListener('keydown', handleKeydown)
+    }
+  })
 </script>
 
 <body style="background-color: #323232;">
