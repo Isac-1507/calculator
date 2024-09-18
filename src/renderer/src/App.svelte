@@ -24,7 +24,7 @@
   function handleKeydown(event: KeyboardEvent): void {
     const key = event.key
     // If the key is a number, append it to the display_number
-    if (!isNaN(Number(key))) {
+    if (!isNaN(Number(key)) || key === '.') {
       select(key.toString())()
       // If the key is an operator, perform the operation
     } else if (operators.includes(key)) {
