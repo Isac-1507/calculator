@@ -114,7 +114,8 @@
       <button on:click={clear} class="clear">C</button>
       <button class="operator" on:click={() => operation(operators[3])}>/</button>
       <button class="equals" on:click={equals}>=</button>
-      <div class="spacer"></div> <!--Spacer-->
+      <!--Spacer-->
+      <div class="spacer"></div>
       <button on:click={backspace} class="clear">←</button>
     </div>
   </div>
