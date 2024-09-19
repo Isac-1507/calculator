@@ -42,13 +42,13 @@
   function operation(sign): void {
     operand = Number(display_number)
     operator = sign
-    display_number = ''
+    display_number += ` ${sign} `
   }
 
   // Function to calculate the result based on the operator and operand
   function equals(): void {
     if (operator !== null && operand !== null && display_number !== '') {
-      const currentNum = Number(display_number)
+      const currentNum = Number(display_number.split(' ').pop())
       switch (operator) {
         case '+':
           result = operand + currentNum
