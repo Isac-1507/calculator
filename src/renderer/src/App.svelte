@@ -12,6 +12,7 @@
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const clear = () => (display_number = '')
 
+  const backspace = () => (display_number = display_number.slice(0, -1))
   // Variables to store the operand, result, and operator
   let operand
   let result
@@ -35,6 +36,8 @@
       // If the key is Escape, clear the display_number
     } else if (key === 'Escape') {
       clear()
+    } else if (key === 'Backspace') {
+      backspace()
     }
   }
 
@@ -111,6 +114,8 @@
       <button on:click={clear} class="clear">C</button>
       <button class="operator" on:click={() => operation(operators[3])}>/</button>
       <button class="equals" on:click={equals}>=</button>
+      <div class="spacer"></div> <!--Spacer-->
+      <button on:click={backspace} class="clear">←</button>
     </div>
   </div>
 </body>
@@ -170,5 +175,10 @@
   }
   .equals:hover {
     background: #ffd700;
+  }
+  .spacer {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
   }
 </style>
